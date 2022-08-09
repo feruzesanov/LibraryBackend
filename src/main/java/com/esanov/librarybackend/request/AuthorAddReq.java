@@ -13,10 +13,7 @@ import java.time.LocalDateTime;
 public class AuthorAddReq {
 
     private String fullName;
-
     private LocalDateTime birthday;
-
     private Gender gender;
-
     private String description;
 }

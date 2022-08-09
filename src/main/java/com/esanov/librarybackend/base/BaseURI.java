@@ -13,12 +13,11 @@ public interface BaseURI {
     String TOKEN = "/token";
     String PREPARE = "/prepare";
     String PUBLIC = "/public";
-
     String USER = "/user";
-
     String BOOK = "/book";
     String AUTHOR = "/author";
     String PUBLISHER = "/publisher";
+    String ORDER = "/order";
     String BANK = "/bank";
     String TELEGRAM = "/telegram";
 

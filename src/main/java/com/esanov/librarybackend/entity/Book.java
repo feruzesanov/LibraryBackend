@@ -3,12 +3,13 @@ package com.esanov.librarybackend.entity;
 import com.esanov.librarybackend.base.BaseEntity;
 import com.esanov.librarybackend.enums.Genre;
 import com.esanov.librarybackend.enums.Lang;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -41,25 +42,25 @@ public class Book extends BaseEntity {
 
     private Integer price;
 
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "publisher_id", referencedColumnName = "id",
-//            nullable = false,
-//            insertable = false,
-//            updatable = false)
-//    private Publisher publisher;
-//
-//    @Column(name = "publisher_id", insertable = false, updatable = false)
-//    private Long publisherId;
-//
-//    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "attachment_id", referencedColumnName = "id",
-//            nullable = false,
-//            insertable = false,
-//            updatable = false)
-//    private Attachment attachment;
-//
-//    @Column(name = "attachment_id", insertable = false, updatable = false)
-//    private Long attachmentId;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "publisher_id", referencedColumnName = "id",
+            nullable = false,
+            insertable = false,
+            updatable = false)
+    private Publisher publisher;
+
+    @Column(name = "publisher_id")
+    private Long publisherId;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "attachment_id", referencedColumnName = "id",
+            nullable = false,
+            insertable = false,
+            updatable = false)
+    private Attachment attachment;
+
+    @Column(name = "attachment_id")
+    private Long attachmentId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "author_id", referencedColumnName = "id", insertable = false, updatable = false)
