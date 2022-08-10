@@ -4,11 +4,10 @@ import com.esanov.librarybackend.response.ResponseMessage;
 import com.esanov.librarybackend.service.AttachService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
 
 import static com.esanov.librarybackend.base.BaseURI.*;
 
@@ -21,6 +20,12 @@ public class AttachmentController {
     @PostMapping(UPLOAD)
     public ResponseEntity<ResponseMessage> uploadAttachment(@RequestParam("file") MultipartFile file) {
         return attachService.uploadAttachment(file);
+    }
+
+    @RequestMapping("/download/{fileName:.+}")
+    public void downloadFile(HttpServletResponse response,
+                             @PathVariable("fileName") String fileName) {
+        attachService.downloadFile(fileName, response);
     }
 
 }
