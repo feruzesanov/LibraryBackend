@@ -1,5 +1,6 @@
 package com.esanov.librarybackend.controller;
 
+import com.esanov.librarybackend.base.ResponseData;
 import com.esanov.librarybackend.request.EmailReq;
 import com.esanov.librarybackend.request.IdReq;
 import com.esanov.librarybackend.request.UserAddReq;
@@ -24,33 +25,33 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(ADD)
-    public ResponseEntity<ResponseMessage> add(@RequestBody UserAddReq userAddReq) {
+    public ResponseData<ResponseMessage> add(@RequestBody UserAddReq userAddReq) {
         return userService.add(userAddReq);
     }
 
     @GetMapping(GET + ALL)
-    public ResponseEntity<List<UserResponse>> getAll(@PositiveOrZero @RequestParam(defaultValue = "0") int page,
+    public ResponseData<List<UserResponse>> getAll(@PositiveOrZero @RequestParam(defaultValue = "0") int page,
                                                      @Positive @RequestParam(defaultValue = "10") int size) {
         return userService.getAll(page,size);
     }
 
     @PostMapping(GET + ONE)
-    public ResponseEntity<UserResponse> getOne(@RequestBody IdReq idReq) {
+    public ResponseData<UserResponse> getOne(@RequestBody IdReq idReq) {
         return userService.getOne(idReq);
     }
 
     @PostMapping(UPDATE)
-    public ResponseEntity<UserResponse> update(@RequestBody UserEditReq editReq) {
+    public ResponseData<UserResponse> update(@RequestBody UserEditReq editReq) {
         return userService.update(editReq);
     }
 
     @PostMapping(DELETE)
-    public ResponseEntity<Boolean> delete(@RequestBody IdReq idReq) {
+    public ResponseData<Boolean> delete(@RequestBody IdReq idReq) {
         return userService.delete(idReq);
     }
 
     @PostMapping(DOWNLOAD)
-    public ResponseEntity<List<ResponseMessage>> downloadUrl(@RequestBody EmailReq emailReq){
+    public ResponseData<List<ResponseMessage>> downloadUrl(@RequestBody EmailReq emailReq){
         return userService.downloadUrl(emailReq);
     }
 

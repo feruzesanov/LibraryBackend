@@ -1,5 +1,6 @@
 package com.esanov.librarybackend.service.impl;
 
+import com.esanov.librarybackend.base.ResponseData;
 import com.esanov.librarybackend.entity.Attachment;
 import com.esanov.librarybackend.repository.AttachmentRepository;
 import com.esanov.librarybackend.response.ResponseMessage;
@@ -24,7 +25,7 @@ public class AttachServiceImpl implements AttachService {
 
     private final AttachmentRepository attachmentRepository;
     @Override
-    public ResponseEntity<ResponseMessage> uploadAttachment(MultipartFile file) {
+    public ResponseData<ResponseMessage> uploadAttachment(MultipartFile file) {
         String[] array = Objects.requireNonNull(file.getOriginalFilename()).split("\\.");
         String generatedName = UUID.randomUUID() + "." + array[array.length - 1];
 
@@ -45,7 +46,7 @@ public class AttachServiceImpl implements AttachService {
 
         attachmentRepository.save(attachment);
 
-        return ResponseEntity.ok(new ResponseMessage("Book muvaffaqiyatli upload qilindi."));
+        return new ResponseData<>(new ResponseMessage("Book muvaffaqiyatli upload qilindi."));
 
     }
 

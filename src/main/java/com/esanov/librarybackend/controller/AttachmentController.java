@@ -1,5 +1,6 @@
 package com.esanov.librarybackend.controller;
 
+import com.esanov.librarybackend.base.ResponseData;
 import com.esanov.librarybackend.response.ResponseMessage;
 import com.esanov.librarybackend.service.AttachService;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,7 @@ public class AttachmentController {
     private final AttachService attachService;
 
     @PostMapping(UPLOAD)
-    public ResponseEntity<ResponseMessage> uploadAttachment(@RequestParam("file") MultipartFile file) {
+    public ResponseData<ResponseMessage> uploadAttachment(@RequestParam("file") MultipartFile file) {
         return attachService.uploadAttachment(file);
     }
 

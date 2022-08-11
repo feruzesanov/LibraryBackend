@@ -1,5 +1,6 @@
 package com.esanov.librarybackend.service.impl;
 
+import com.esanov.librarybackend.base.ResponseData;
 import com.esanov.librarybackend.entity.Author;
 import com.esanov.librarybackend.mapper.AuthorMapper;
 import com.esanov.librarybackend.repository.AuthorRepository;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,7 +27,7 @@ public class AuthorServiceImpl implements AuthorService {
 
 
     @Override
-    public ResponseEntity<ResponseMessage> add(AuthorAddReq authorAddReq) {
+    public ResponseData<ResponseMessage> add(AuthorAddReq authorAddReq) {
 
         Optional<Author> authorOptional = authorRepository
                 .findByFullName(authorAddReq.getFullName());
@@ -37,31 +37,31 @@ public class AuthorServiceImpl implements AuthorService {
 
         Author author = authorMapper.toReq(authorAddReq);
         authorRepository.save(author);
-        return ResponseEntity.ok(new ResponseMessage("Author muvaffaqiyatli qo'shildi."));
+        return new ResponseData<>(new ResponseMessage("Author muvaffaqiyatli qo'shildi."));
 
     }
 
     @Override
-    public ResponseEntity<List<AuthorResponce>> getAll(int page, int size) {
+    public ResponseData<List<AuthorResponce>> getAll(int page, int size) {
 
         List<Author> authorList = authorRepository.findAll(PageRequest.of(page, size)).toList();
-        return ResponseEntity.ok(authorMapper.toRes(authorList));
+        return new ResponseData<>(authorMapper.toRes(authorList));
 
     }
 
     @Override
-    public ResponseEntity<AuthorResponce> getOne(IdReq idReq) {
+    public ResponseData<AuthorResponce> getOne(IdReq idReq) {
 
         Optional<Author> authorOptional = authorRepository.findById(idReq.getId());
         if (authorOptional.isEmpty()){
             throw new RuntimeException("Bunday idlik student yoq");
         }
         Author author = authorOptional.get();
-        return ResponseEntity.ok(authorMapper.toRes(author));
+        return new ResponseData<>(authorMapper.toRes(author));
     }
 
     @Override
-    public ResponseEntity<AuthorResponce> update(AuthorEditReq editReq) {
+    public ResponseData<AuthorResponce> update(AuthorEditReq editReq) {
 
         Optional<Author> authorOptional = authorRepository.findById(editReq.getId());
         if (authorOptional.isEmpty()){
@@ -70,16 +70,16 @@ public class AuthorServiceImpl implements AuthorService {
         Author author = authorOptional.get();
         Author author1 = authorMapper.toEntity(author, editReq);
         authorRepository.save(author1);
-        return ResponseEntity.ok(authorMapper.toRes(author1));
+        return new ResponseData<>(authorMapper.toRes(author1));
     }
 
     @Override
-    public ResponseEntity<Boolean> delete(IdReq idReq) {
+    public ResponseData<Boolean> delete(IdReq idReq) {
         if (!authorRepository.existsById(idReq.getId())){
             throw new RuntimeException("Bunday idlik author yoq");
         }
         authorRepository.deleteById(idReq.getId());
-        return ResponseEntity.ok(true);
+        return new ResponseData<>(true);
     }
 
 

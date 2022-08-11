@@ -1,5 +1,6 @@
 package com.esanov.librarybackend.service.impl;
 
+import com.esanov.librarybackend.base.ResponseData;
 import com.esanov.librarybackend.entity.Order;
 import com.esanov.librarybackend.mapper.OrderMapper;
 import com.esanov.librarybackend.repository.OrderRepo;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,32 +26,32 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
 
     @Override
-    public ResponseEntity<ResponseMessage> add(OrderReq orderReq) {
+    public ResponseData<ResponseMessage> add(OrderReq orderReq) {
 
         Order order = orderMapper.toDomain(orderReq);
         orderRepo.save(order);
-        return ResponseEntity.ok(new ResponseMessage("Order kiritildi."));
+        return new ResponseData<>(new ResponseMessage("Order kiritildi."));
 
     }
 
     @Override
-    public ResponseEntity<List<OrderResponse>> getAll(int page, int size) {
+    public ResponseData<List<OrderResponse>> getAll(int page, int size) {
         List<Order> orderList = orderRepo.findAll(PageRequest.of(page,size)).toList();
-        return ResponseEntity.ok(orderMapper.toRes(orderList));
+        return new ResponseData<>(orderMapper.toRes(orderList));
     }
 
     @Override
-    public ResponseEntity<OrderResponse> getOne(IdReq idReq) {
+    public ResponseData<OrderResponse> getOne(IdReq idReq) {
 
         Optional<Order> orderOptional = orderRepo.findById(idReq.getId());
         if (orderOptional.isEmpty()) {
             throw new RuntimeException("Bunday idlik order yoq.");
         }
-        return ResponseEntity.ok(orderMapper.toRes(orderOptional.get()));
+        return new ResponseData<>(orderMapper.toRes(orderOptional.get()));
     }
 
     @Override
-    public ResponseEntity<OrderResponse> update(OrderEditReq editReq) {
+    public ResponseData<OrderResponse> update(OrderEditReq editReq) {
 
         Optional<Order> orderOptional = orderRepo.findById(editReq.getId());
         if (orderOptional.isEmpty()) {
@@ -59,17 +59,17 @@ public class OrderServiceImpl implements OrderService {
         }
         Order order = orderMapper.toEntity(orderOptional.get(), editReq);
         orderRepo.save(order);
-        return ResponseEntity.ok(orderMapper.toRes(order));
+        return new ResponseData<>(orderMapper.toRes(order));
     }
 
     @Override
-    public ResponseEntity<Boolean> delete(IdReq idReq) {
+    public ResponseData<Boolean> delete(IdReq idReq) {
 
         Optional<Order> orderOptional = orderRepo.findById(idReq.getId());
         if (orderOptional.isEmpty()) {
             throw new RuntimeException("Bunday idlik order yoq");
         }
         orderRepo.deleteById(idReq.getId());
-        return ResponseEntity.ok(true);
+        return new ResponseData<>(true);
     }
 }

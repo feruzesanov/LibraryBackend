@@ -1,5 +1,6 @@
 package com.esanov.librarybackend.controller;
 
+import com.esanov.librarybackend.base.ResponseData;
 import com.esanov.librarybackend.request.IdReq;
 import com.esanov.librarybackend.request.OrderEditReq;
 import com.esanov.librarybackend.request.OrderReq;
@@ -24,28 +25,28 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping(ADD)
-    public ResponseEntity<ResponseMessage> add(@RequestBody OrderReq orderReq) {
+    public ResponseData<ResponseMessage> add(@RequestBody OrderReq orderReq) {
         return orderService.add(orderReq);
     }
 
     @GetMapping(GET + ALL)
-    public ResponseEntity<List<OrderResponse>> getAll(@PositiveOrZero @RequestParam(defaultValue = "0") int page,
+    public ResponseData<List<OrderResponse>> getAll(@PositiveOrZero @RequestParam(defaultValue = "0") int page,
                                                       @Positive @RequestParam(defaultValue = "10") int size){
         return orderService.getAll(page,size);
     }
 
     @PostMapping(GET+ONE)
-    public ResponseEntity<OrderResponse> getOne(@RequestBody IdReq idReq){
+    public ResponseData<OrderResponse> getOne(@RequestBody IdReq idReq){
         return orderService.getOne(idReq);
     }
 
     @PostMapping(UPDATE)
-    public ResponseEntity<OrderResponse> update(@RequestBody OrderEditReq editReq){
+    public ResponseData<OrderResponse> update(@RequestBody OrderEditReq editReq){
         return orderService.update(editReq);
     }
 
     @PostMapping(DELETE)
-    public ResponseEntity<Boolean> delete(@RequestBody IdReq idReq){
+    public ResponseData<Boolean> delete(@RequestBody IdReq idReq){
         return orderService.delete(idReq);
     }
 }

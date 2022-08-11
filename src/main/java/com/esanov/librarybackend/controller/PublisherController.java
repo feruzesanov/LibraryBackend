@@ -1,5 +1,6 @@
 package com.esanov.librarybackend.controller;
 
+import com.esanov.librarybackend.base.ResponseData;
 import com.esanov.librarybackend.request.IdReq;
 import com.esanov.librarybackend.request.PublishEditReq;
 import com.esanov.librarybackend.request.PublisherAddReq;
@@ -24,28 +25,28 @@ public class PublisherController {
     private final PublisherService publisherService;
 
     @PostMapping(ADD)
-    public ResponseEntity<ResponseMessage> add(@RequestBody PublisherAddReq publisherAddReq){
+    public ResponseData<ResponseMessage> add(@RequestBody PublisherAddReq publisherAddReq){
         return publisherService.add(publisherAddReq);
 
     }
     @GetMapping(GET+ALL)
-    public ResponseEntity<List<PublishResponse>> getAll(@PositiveOrZero @RequestParam(defaultValue = "0") int page,
+    public ResponseData<List<PublishResponse>> getAll(@PositiveOrZero @RequestParam(defaultValue = "0") int page,
                                                         @Positive @RequestParam(defaultValue = "10") int size){
         return publisherService.getAll(page,size);
     }
 
     @PostMapping(GET+ONE)
-    public ResponseEntity<PublishResponse> getOne(@RequestBody IdReq idReq){
+    public ResponseData<PublishResponse> getOne(@RequestBody IdReq idReq){
         return publisherService.getOne(idReq);
     }
 
     @PostMapping(UPDATE)
-    public ResponseEntity<PublishResponse> update(@RequestBody PublishEditReq editReq){
+    public ResponseData<PublishResponse> update(@RequestBody PublishEditReq editReq){
         return publisherService.update(editReq);
     }
 
     @PostMapping(DELETE)
-    public ResponseEntity<Boolean> delete(@RequestBody IdReq idReq){
+    public ResponseData<Boolean> delete(@RequestBody IdReq idReq){
         return publisherService.delete(idReq);
     }
 

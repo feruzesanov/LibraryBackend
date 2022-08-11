@@ -1,5 +1,6 @@
 package com.esanov.librarybackend.service.impl;
 
+import com.esanov.librarybackend.base.ResponseData;
 import com.esanov.librarybackend.entity.Publisher;
 import com.esanov.librarybackend.mapper.PublisherMapper;
 import com.esanov.librarybackend.repository.PublisherRepository;
@@ -14,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,29 +26,29 @@ public class PublisherServiceImpl implements PublisherService {
     private final PublisherMapper publisherMapper;
 
     @Override
-    public ResponseEntity<ResponseMessage> add(PublisherAddReq publisherAddReq) {
+    public ResponseData<ResponseMessage> add(PublisherAddReq publisherAddReq) {
         Publisher publisher = publisherMapper.toReq(publisherAddReq);
         publisherRepository.save(publisher);
-        return ResponseEntity.ok(new ResponseMessage("Publisher muvaffaqiyatli qo'shildi."));
+        return new ResponseData<>(new ResponseMessage("Publisher muvaffaqiyatli qo'shildi."));
     }
 
     @Override
-    public ResponseEntity<List<PublishResponse>> getAll(int page, int size) {
+    public ResponseData<List<PublishResponse>> getAll(int page, int size) {
         List<Publisher> publisherList = publisherRepository.findAll(PageRequest.of(page, size)).toList();
-        return ResponseEntity.ok(publisherMapper.toRes(publisherList));
+        return new ResponseData<>(publisherMapper.toRes(publisherList));
     }
 
     @Override
-    public ResponseEntity<PublishResponse> getOne(IdReq idReq) {
+    public ResponseData<PublishResponse> getOne(IdReq idReq) {
         Optional<Publisher> publisherOptional = publisherRepository.findById(idReq.getId());
         if (publisherOptional.isEmpty()){
             throw new RuntimeException("Bunday idlik publisher yoq");
         }
-        return ResponseEntity.ok(publisherMapper.toRes(publisherOptional.get()));
+        return new ResponseData<>(publisherMapper.toRes(publisherOptional.get()));
     }
 
     @Override
-    public ResponseEntity<PublishResponse> update(PublishEditReq editReq) {
+    public ResponseData<PublishResponse> update(PublishEditReq editReq) {
         Optional<Publisher> publisherOptional = publisherRepository.findById(editReq.getId());
         if (publisherOptional.isEmpty()){
             throw new RuntimeException("Bunday idlik pulisher yoq");
@@ -56,15 +56,15 @@ public class PublisherServiceImpl implements PublisherService {
         Publisher publisher = publisherOptional.get();
         Publisher publisher1 = publisherMapper.toEditReq(publisher,editReq);
         publisherRepository.save(publisher1);
-        return ResponseEntity.ok(publisherMapper.toRes(publisher1));
+        return new ResponseData<>(publisherMapper.toRes(publisher1));
     }
 
     @Override
-    public ResponseEntity<Boolean> delete(IdReq idReq) {
+    public ResponseData<Boolean> delete(IdReq idReq) {
         if (!publisherRepository.existsById(idReq.getId())){
             throw new RuntimeException("Bunday idlik publisher yoq");
         }
         publisherRepository.deleteById(idReq.getId());
-        return ResponseEntity.ok(true);
+        return new ResponseData<>(true);
     }
 }
