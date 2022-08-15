@@ -21,4 +21,7 @@ public interface BookService {
     ResponseData<BookResponse> update(BookEditReq editReq);
 
     ResponseData<Boolean> delete(IdReq idReq);
+
+    Boolean isExistsBook(Long id);
+
 }

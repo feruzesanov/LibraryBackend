@@ -9,7 +9,12 @@ import javax.validation.constraints.NotNull;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderEditReq extends OrderAddReq{
-    @NotNull(message = "id must not null")
-    private Long id;
+public class OrderAddReq {
+
+    @NotNull(message = "bookId must not null")
+    private Long bookId;
+
+    @NotNull(message = "userId must not null")
+    private Long userId;
+
 }

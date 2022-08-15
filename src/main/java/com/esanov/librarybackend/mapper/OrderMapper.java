@@ -1,8 +1,8 @@
 package com.esanov.librarybackend.mapper;
 
 import com.esanov.librarybackend.entity.Order;
+import com.esanov.librarybackend.request.OrderAddReq;
 import com.esanov.librarybackend.request.OrderEditReq;
-import com.esanov.librarybackend.request.OrderReq;
 import com.esanov.librarybackend.response.OrderResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -23,7 +23,7 @@ public interface OrderMapper {
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "book", ignore = true)
-    Order toDomain(OrderReq orderReq);
+    Order toDomain(OrderAddReq orderReq);
 
     OrderResponse toRes(Order order);
 

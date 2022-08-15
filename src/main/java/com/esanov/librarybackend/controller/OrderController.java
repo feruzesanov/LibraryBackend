@@ -1,16 +1,17 @@
 package com.esanov.librarybackend.controller;
 
 import com.esanov.librarybackend.base.ResponseData;
+import com.esanov.librarybackend.exceptions.CustomNotFoundException;
 import com.esanov.librarybackend.request.IdReq;
+import com.esanov.librarybackend.request.OrderAddReq;
 import com.esanov.librarybackend.request.OrderEditReq;
-import com.esanov.librarybackend.request.OrderReq;
 import com.esanov.librarybackend.response.OrderResponse;
 import com.esanov.librarybackend.response.ResponseMessage;
 import com.esanov.librarybackend.service.OrderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -25,8 +26,8 @@ public class OrderController {
     private final OrderService orderService;
 
     @PostMapping(ADD)
-    public ResponseData<ResponseMessage> add(@RequestBody OrderReq orderReq) {
-        return orderService.add(orderReq);
+    public ResponseData<OrderResponse> add(@RequestBody @Valid OrderAddReq orderAddReq) throws CustomNotFoundException {
+        return orderService.add(orderAddReq);
     }
 
     @GetMapping(GET + ALL)
@@ -36,17 +37,17 @@ public class OrderController {
     }
 
     @PostMapping(GET+ONE)
-    public ResponseData<OrderResponse> getOne(@RequestBody IdReq idReq){
+    public ResponseData<OrderResponse> getOne(@RequestBody @Valid IdReq idReq){
         return orderService.getOne(idReq);
     }
 
     @PostMapping(UPDATE)
-    public ResponseData<OrderResponse> update(@RequestBody OrderEditReq editReq){
+    public ResponseData<OrderResponse> update(@RequestBody @Valid OrderEditReq editReq){
         return orderService.update(editReq);
     }
 
     @PostMapping(DELETE)
-    public ResponseData<Boolean> delete(@RequestBody IdReq idReq){
+    public ResponseData<Boolean> delete(@RequestBody @Valid IdReq idReq){
         return orderService.delete(idReq);
     }
 }

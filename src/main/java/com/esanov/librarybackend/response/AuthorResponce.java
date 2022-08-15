@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class AuthorResponce {
 
+    private Long id;
     private String fullName;
     private LocalDateTime birthday;
     private Gender gender;

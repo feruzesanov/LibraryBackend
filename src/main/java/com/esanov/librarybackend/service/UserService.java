@@ -22,4 +22,6 @@ public interface UserService {
     ResponseData<Boolean> delete(IdReq idReq);
 
     ResponseData<List<ResponseMessage>> downloadUrl(EmailReq emailReq);
+
+    Boolean isExistsUser(Long id);
 }

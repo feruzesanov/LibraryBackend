@@ -13,6 +13,7 @@ import org.hibernate.annotations.Filter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -27,7 +28,7 @@ public class BookController {
     private final BookService bookService;
 
     @PostMapping(ADD)
-    public ResponseData<ResponseMessage> add(@RequestBody BookAddReq bookAddReq) {
+    public ResponseData<ResponseMessage> add(@RequestBody @Valid BookAddReq bookAddReq) {
         return bookService.add(bookAddReq);
     }
 
@@ -41,17 +42,17 @@ public class BookController {
 
 
     @PostMapping(GET + ONE)
-    public ResponseData<BookResponse> getOne(@RequestBody IdReq idReq) {
+    public ResponseData<BookResponse> getOne(@RequestBody @Valid IdReq idReq) {
         return bookService.getOne(idReq);
     }
 
     @PostMapping(UPDATE)
-    public ResponseData<BookResponse> update(@RequestBody BookEditReq editReq) {
+    public ResponseData<BookResponse> update(@RequestBody @Valid BookEditReq editReq) {
         return bookService.update(editReq);
     }
 
     @PostMapping(DELETE)
-    public ResponseData<Boolean> delete(@RequestBody IdReq idReq) {
+    public ResponseData<Boolean> delete(@RequestBody @Valid IdReq idReq) {
         return bookService.delete(idReq);
     }
 

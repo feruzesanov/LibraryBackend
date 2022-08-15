@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PublishResponse {
+    private Long id;
     private String name;
     private String street;
     private String country;

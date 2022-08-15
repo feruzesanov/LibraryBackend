@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
             userAddReq.setPhone("+" + userAddReq.getPhone());
         }
         User user = userMapper.toReq(userAddReq);
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
         return new ResponseData<>(new ResponseMessage("User muvaffaqiyatli qo'shildi."));
     }
 
@@ -100,6 +100,14 @@ public class UserServiceImpl implements UserService {
             }
         }
         return new ResponseData<>(urlList);
+    }
+
+    @Override
+    public Boolean isExistsUser(Long id) {
+        if (userRepository.existsById(id)){
+            return true;
+        }
+        return false;
     }
 
 }

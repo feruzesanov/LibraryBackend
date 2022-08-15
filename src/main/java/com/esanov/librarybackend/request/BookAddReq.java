@@ -15,22 +15,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class BookAddReq {
 
-    @NotBlank
+    @NotBlank(message = "book name must not be empty")
     private String name;
 
-    @NotNull
+    @NotNull(message = "page must not null")
     private Integer page;
 
-    @NotNull
+    @NotNull(message = "genre must not null")
     private Genre genre;
 
-    @NotNull
+    @NotNull(message = "lang must not null")
     private Lang lang;
 
-    @NotBlank
+    @NotBlank(message = "description must be empty")
     private String description;
 
-    @NotNull
+    @NotNull(message = "price must not null")
     private Integer price;
 
     @NotNull

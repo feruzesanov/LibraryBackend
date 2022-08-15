@@ -21,10 +21,9 @@ public interface UserMapper {
     @Mapping(target = "deleted", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     User toReq(UserAddReq userAddReq);
-
+    UserResponse toRes(User user);
     List<UserResponse> toRes(List<User> userList);
 
-    UserResponse toRes(User user);
 
     @Mapping(target = "updatedAt", expression = "java(java.time.LocalDateTime.now())")
     @Mapping(target = "deleted", ignore = true)

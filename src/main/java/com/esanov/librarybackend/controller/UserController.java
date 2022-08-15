@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.util.List;
@@ -25,7 +26,7 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping(ADD)
-    public ResponseData<ResponseMessage> add(@RequestBody UserAddReq userAddReq) {
+    public ResponseData<ResponseMessage> add(@RequestBody @Valid UserAddReq userAddReq) {
         return userService.add(userAddReq);
     }
 

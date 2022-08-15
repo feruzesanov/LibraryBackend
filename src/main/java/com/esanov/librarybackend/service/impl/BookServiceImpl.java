@@ -14,6 +14,7 @@ import com.esanov.librarybackend.service.BookService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -38,13 +39,14 @@ public class BookServiceImpl implements BookService {
     @Override
     public ResponseData<List<BookResponse>> getAll(int page, int size, Lang lang) {
 
-        if (lang==Lang.ALL) {
+        if (lang == Lang.ALL) {
             List<Book> bookList = bookRepository.findAll(PageRequest.of(page, size,
                     Sort.by("createdAt").descending())).toList();
             List<BookResponse> bookResponseList = bookMapper.toResp(bookList);
             return new ResponseData<>(bookResponseList);
-        } else {            List<Book> bookList = bookRepository.findAllByLang(lang, PageRequest.of(page, size,
-                Sort.by("createdAt").descending()));
+        } else {
+            List<Book> bookList = bookRepository.findAllByLang(lang, PageRequest.of(page, size,
+                    Sort.by("createdAt").descending()));
 
             List<BookResponse> bookResponseList = bookMapper.toResp(bookList);
             return new ResponseData<>(bookResponseList);
@@ -81,6 +83,15 @@ public class BookServiceImpl implements BookService {
         }
         bookRepository.deleteById(idReq.getId());
         return new ResponseData<>(true);
+    }
+
+    @Override
+    public Boolean isExistsBook(Long id) {
+        if (bookRepository.existsById(id)) {
+            return true;
+        }
+        return false;
+
     }
 
 }

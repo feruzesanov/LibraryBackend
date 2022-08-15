@@ -1,4 +1,4 @@
-package com.esanov.librarybackend.request;
+package com.esanov.librarybackend.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,10 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderReq {
-
-    private Long bookId;
-
-    private Long userId;
-
+public class ErrorMessage {
+    private String error;
 }

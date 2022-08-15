@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class OrderResponse {
 
+    private Long id;
     private Long userId;
     private Long bookId;
 
