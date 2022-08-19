@@ -1,6 +1,7 @@
 package com.esanov.librarybackend.service.impl;
 
 import com.esanov.librarybackend.base.ResponseData;
+import com.esanov.librarybackend.entity.Author;
 import com.esanov.librarybackend.entity.Book;
 import com.esanov.librarybackend.enums.Lang;
 import com.esanov.librarybackend.mapper.BookMapper;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
